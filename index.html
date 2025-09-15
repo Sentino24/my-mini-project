@@ -3,12 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Test Button</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Button + Heart Loader</title>
     <style>
         body {
             background-color: pink;
-            /* พื้นหลังทั้งหน้า */
             font-family: sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
         #questionContainer {
@@ -41,65 +43,249 @@
             font-size: 16px;
             font-weight: bold;
             color: white;
-            min-width: 10px;
+            min-width: 80px;
+            margin: 0;
             text-align: center;
         }
 
-        /* ปุ่มใช่ - ซ้ายล่าง */
         #yesBtn {
-            bottom: 20px;
+            bottom: 21px;
             left: 180px;
-            background-color: #4CAF50;
-            /* เขียว */
+            background-color: lightcoral;
         }
 
-        /* ปุ่มไม่ - เริ่มใกล้กัน ใช้ top+left เท่านั้น */
         #noBtn {
             top: 240px;
-            left: 260px;
-            background-color: #f44336;
-            /* แดง */
+            left: 280px;
+            background-color: rgb(237, 162, 162);
             transition: all 0.3s ease;
-            /* หนีแบบ smooth */
         }
 
-        #heartLoader {
-            display: block;
-            margin-top: 20px;
-        }
-
-        #heartLoader img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-            border-radius: 10px;
-        }
-
-        #resultContainer {
+        /* Heart Loader */
+        #heartLoaderContainer {
             display: none;
-            margin-top: 20px;
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background-color: black;
+        }
+
+        .heart-loader {
+            position: absolute;
+            display: block;
+            left: 50%;
+            top: 50%;
+            margin-top: -150px;
+            width: 300px;
+            height: 300px;
+            overflow: visible;
+        }
+
+        .heart-loader__group {
+            transform-origin: 0 90px;
+            animation: group-anim 7s 0.1s infinite;
+        }
+
+        .heart-loader__square {
+            stroke: grey;
+            stroke-dasharray: 240, 240;
+            stroke-dashoffset: 240;
+            animation: square-anim 7s 0.1s infinite;
+        }
+
+        .heart-loader__circle {
+            stroke: grey;
+            stroke-dasharray: 188.522, 188.522;
+            stroke-dashoffset: 188.522;
+            transform-origin: 60px 30px;
+        }
+
+        .heart-loader__circle.m--left {
+            animation: left-circle-anim 7s 0.1s infinite;
+        }
+
+        .heart-loader__circle.m--right {
+            animation: right-circle-anim 7s 0.1s infinite;
+        }
+
+        .heart-loader__heartPath {
+            stroke: #db3434;
+            fill: transparent;
+            stroke-dasharray: 308.522, 308.522;
+            stroke-dashoffset: 308.522;
+            animation: heart-anim 7s 0.1s infinite;
+        }
+
+        @keyframes square-anim {
+            12% {
+                stroke-dashoffset: 0;
+            }
+
+            43% {
+                stroke-dashoffset: 0;
+                opacity: 1;
+            }
+
+            85% {
+                stroke-dashoffset: 0;
+                opacity: 0;
+            }
+
+            100% {
+                stroke-dashoffset: 0;
+                opacity: 0;
+            }
+        }
+
+        @keyframes left-circle-anim {
+            12% {
+                stroke-dashoffset: 188.522;
+            }
+
+            31% {
+                stroke-dashoffset: 0;
+                transform: translateY(0);
+            }
+
+            41% {
+                stroke-dashoffset: 0;
+                transform: translateY(-30px);
+            }
+
+            43% {
+                stroke-dashoffset: 0;
+                transform: translateY(-30px);
+                opacity: 1;
+            }
+
+            85% {
+                stroke-dashoffset: 0;
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+
+            100% {
+                stroke-dashoffset: 0;
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes right-circle-anim {
+            12% {
+                stroke-dashoffset: 188.522;
+            }
+
+            31% {
+                stroke-dashoffset: 0;
+                transform: translateX(0);
+            }
+
+            41% {
+                stroke-dashoffset: 0;
+                transform: translateX(30px);
+            }
+
+            43% {
+                stroke-dashoffset: 0;
+                transform: translateX(30px);
+                opacity: 1;
+            }
+
+            85% {
+                stroke-dashoffset: 0;
+                transform: translateX(30px);
+                opacity: 0;
+            }
+
+            100% {
+                stroke-dashoffset: 0;
+                transform: translateX(30px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes group-anim {
+            43% {
+                transform: rotate(0);
+            }
+
+            54% {
+                transform: rotate(-45deg);
+            }
+
+            90% {
+                transform: rotate(-45deg);
+                opacity: 1;
+            }
+
+            97% {
+                transform: rotate(-45deg);
+                opacity: 0;
+            }
+
+            100% {
+                transform: rotate(-45deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes heart-anim {
+            55% {
+                stroke-dashoffset: 308.522;
+                fill: transparent;
+            }
+
+            70% {
+                stroke-dashoffset: 0;
+                fill: transparent;
+            }
+
+            87% {
+                stroke-dashoffset: 0;
+                fill: #db3434;
+            }
+
+            100% {
+                stroke-dashoffset: 0;
+                fill: #db3434;
+            }
         }
     </style>
 </head>
 
 <body>
+    <!-- หน้าคำถาม -->
     <div id="questionContainer">
-
-        <div id="heartLoader"><img src="https://i.pinimg.com/736x/36/49/6b/36496b1fbe62cb71e28ece8e0460757d.jpg" alt="">
+        <h2>Do you love me?</h2>
+        <div id="questionContainer_2">
+            <button id="yesBtn">Yes</button>
+            <button id="noBtn">No</button>
         </div>
     </div>
-    <div id="questionContainer_2">
-        <button id="yesBtn">ใช่</button>
-        <button id="noBtn">ไม่</button>
+
+    <!-- Heart Loader -->
+    <div id="heartLoaderContainer">
+        <svg class="heart-loader" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+            xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 90 90" version="1.1">
+            <g class="heart-loader__group">
+                <path class="heart-loader__square" stroke-width="1" fill="none" d="M0,30 0,90 60,90 60,30z" />
+                <path class="heart-loader__circle m--left" stroke-width="1" fill="none"
+                    d="M60,60 a30,30 0 0,1 -60,0 a30,30 0 0,1 60,0" />
+                <path class="heart-loader__circle m--right" stroke-width="1" fill="none"
+                    d="M60,60 a30,30 0 0,1 -60,0 a30,30 0 0,1 60,0" />
+                <path class="heart-loader__heartPath" stroke-width="2"
+                    d="M60,30 a30,30 0 0,1 0,60 L0,90 0,30 a30,30 0 0,1 60,0" />
+            </g>
+        </svg>
     </div>
 
     <script>
         const noBtn = document.getElementById("noBtn");
         const yesBtn = document.getElementById("yesBtn");
         const questionContainer = document.getElementById("questionContainer");
-        const heartLoader = document.getElementById("heartLoader");
-        const resultContainer = document.getElementById("resultContainer");
+        const heartLoaderContainer = document.getElementById("heartLoaderContainer");
 
         // ปุ่ม "ไม่" หนี
         noBtn.addEventListener("mouseover", () => {
@@ -110,15 +296,10 @@
             noBtn.style.top = `${newY}px`;
         });
 
-        // ปุ่ม "ใช่"
+        // ปุ่ม "ใช่" แสดงหน้าที่ 2
         yesBtn.addEventListener("click", () => {
-            window.location.href = "Heart.html";
-
-            // โหลดผลลัพธ์
-            setTimeout(() => {
-                heartLoader.style.display = "none";
-                resultContainer.style.display = "inherit";
-            }, 1000);
+            questionContainer.style.display = "none";
+            heartLoaderContainer.style.display = "block";
         });
     </script>
 </body>
