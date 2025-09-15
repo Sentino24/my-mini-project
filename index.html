@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Test Button</title>
+    <style>
+        body {
+            background-color: pink;
+            /* พื้นหลังทั้งหน้า */
+            font-family: sans-serif;
+        }
+
+        #questionContainer {
+            position: relative;
+            width: 500px;
+            height: 300px;
+            border: 1px solid #ccc;
+            margin: 50px auto;
+            text-align: center;
+            background-color: white;
+            border-radius: 15px;
+        }
+
+        #questionContainer_2 {
+            position: relative;
+            width: 500px;
+            height: 300px;
+            margin: 50px auto;
+            text-align: center;
+            border-radius: 15px;
+        }
+
+        #noBtn,
+        #yesBtn {
+            position: absolute;
+            padding: 10px 25px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            min-width: 10px;
+            text-align: center;
+        }
+
+        /* ปุ่มใช่ - ซ้ายล่าง */
+        #yesBtn {
+            bottom: 20px;
+            left: 180px;
+            background-color: #4CAF50;
+            /* เขียว */
+        }
+
+        /* ปุ่มไม่ - เริ่มใกล้กัน ใช้ top+left เท่านั้น */
+        #noBtn {
+            top: 240px;
+            left: 260px;
+            background-color: #f44336;
+            /* แดง */
+            transition: all 0.3s ease;
+            /* หนีแบบ smooth */
+        }
+
+        #heartLoader {
+            display: block;
+            margin-top: 20px;
+        }
+
+        #heartLoader img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+
+        #resultContainer {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="questionContainer">
+
+        <div id="heartLoader"><img src="https://i.pinimg.com/736x/36/49/6b/36496b1fbe62cb71e28ece8e0460757d.jpg" alt="">
+        </div>
+    </div>
+    <div id="questionContainer_2">
+        <button id="yesBtn">ใช่</button>
+        <button id="noBtn">ไม่</button>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById("noBtn");
+        const yesBtn = document.getElementById("yesBtn");
+        const questionContainer = document.getElementById("questionContainer");
+        const heartLoader = document.getElementById("heartLoader");
+        const resultContainer = document.getElementById("resultContainer");
+
+        // ปุ่ม "ไม่" หนี
+        noBtn.addEventListener("mouseover", () => {
+            const newX = Math.floor(Math.random() * (questionContainer.offsetWidth - noBtn.offsetWidth));
+            const newY = Math.floor(Math.random() * (questionContainer.offsetHeight - noBtn.offsetHeight));
+
+            noBtn.style.left = `${newX}px`;
+            noBtn.style.top = `${newY}px`;
+        });
+
+        // ปุ่ม "ใช่"
+        yesBtn.addEventListener("click", () => {
+            window.location.href = "Heart.html";
+
+            // โหลดผลลัพธ์
+            setTimeout(() => {
+                heartLoader.style.display = "none";
+                resultContainer.style.display = "inherit";
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>
